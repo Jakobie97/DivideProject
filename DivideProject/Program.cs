@@ -30,12 +30,26 @@ try
 { convertNumber1 = Convert.ToDouble(number1);}
 catch {
 
-    Console.WriteLine("Hey Jerk Numbers only. We only serve ints around here. Talk to the sheriff");
+    Console.WriteLine("Hey!!! Numbers only. We only serve ints around here. Talk to the sheriff");
     Console.WriteLine("Last chance before the program dies. Please Enter a Number: ");
-   
+     
     number1 = Console.ReadLine();
-    convertNumber1 = Convert.ToDouble(number1);
+    //convertNumber1 = Convert.ToDouble(number1);
+    bool success = double.TryParse(number1, out convertNumber1);
+    if (success)
+    {
+        Console.WriteLine("Your First entry was Successflly converted to Double");
+    }
+    else
+    {
+        Console.WriteLine("invalid Entry, Program is ending. Relaunch the app and try again");
+        return;
+    }
+
+
+   
 }
+
 
 Console.WriteLine("Please Enter the Second Number you want to divide by:");
 number2 = Console.ReadLine();
@@ -45,8 +59,21 @@ try
 catch
 {
     Console.WriteLine("I guess you dont know how to listen or read. Enjoy digging holes.");
-    return;
+    Console.WriteLine("Last chance before the program dies. Please Enter a Number: ");
     number2 = Console.ReadLine();
+    //convertNumber2 = Convert.ToDouble(number2);
+    bool success = double.TryParse(number2, out convertNumber2);
+    if (success)
+    {
+        Console.WriteLine("Your second entry was Successflly converted to Double");
+    }
+    else
+    {
+        Console.WriteLine("invalid Entry, Program is ending. Relaunch the app and try again");
+        return;
+    }
+
+
 }
 //----------------------------------------------------------------------------------------------
 //Output
