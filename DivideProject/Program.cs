@@ -11,25 +11,19 @@
 
 //definitions 
 using System.Reflection.Metadata.Ecma335;
-
-//Prompts 
-Console.WriteLine("Please Enter the first Number you want to divide:");
-string firstUserInput = Console.ReadLine();
-
-double convertFirstUserInput = 0;
-//Looks to make sure that the user is only putting in an Double -------------------------------- 
+using System.IO;
 try
-{ convertFirstUserInput = Convert.ToDouble(firstUserInput); }
-catch
 {
+    //Prompts 
+    Console.WriteLine("Please Enter the first Number you want to divide:");
+    string firstUserInput = Console.ReadLine();
 
-    Console.WriteLine("Hey!!! Numbers only. We only serve ints around here. Talk to the sheriff");
-    Console.WriteLine("Last chance before the program dies. Please Enter a Number: ");
+    double convertFirstUserInput = 0;
 
-    firstUserInput = Console.ReadLine();
-    //convertFirstUserInput = Convert.ToDouble(firstUserInput);
-    bool success = double.TryParse(firstUserInput, out convertFirstUserInput);
-    if (success)
+    convertFirstUserInput = Convert.ToDouble(firstUserInput);
+    //Looks to make sure that the user is only putting in an Double -------------------------------- 
+    bool firstInputParce = double.TryParse(firstUserInput, out convertFirstUserInput);
+    if (firstInputParce)
     {
         Console.WriteLine("Your First entry was Successflly converted to Double");
     }
@@ -38,22 +32,17 @@ catch
         Console.WriteLine("invalid Entry, Program is ending. Relaunch the app and try again");
         return;
     }
-}
-Console.WriteLine("Please Enter the Second Number you want to divide by:");
+    
+    Console.WriteLine("Please Enter the Second Number you want to divide by:");
 
-string secondUserInput = Console.ReadLine();
-double convertSecondUserInput = 0;
+    string secondUserInput = Console.ReadLine();
+    double convertSecondUserInput = 0;
+    
+    convertSecondUserInput = Convert.ToDouble(secondUserInput); 
 
-try
-{ convertSecondUserInput = Convert.ToDouble(secondUserInput); }
-catch
-{
-    Console.WriteLine("I guess you dont know how to listen or read. Enjoy digging holes.");
-    Console.WriteLine("Last chance before the program dies. Please Enter a Number: ");
-    secondUserInput = Console.ReadLine();
-    //convertSecondUserInput = Convert.ToDouble(secondUserInput);
-    bool success = double.TryParse(secondUserInput, out convertSecondUserInput);
-    if (success)
+        
+    bool secondInputParce = double.TryParse(secondUserInput, out convertSecondUserInput);
+    if (secondInputParce)
     {
         Console.WriteLine("Your second entry was Successflly converted to Double");
     }
@@ -62,11 +51,25 @@ catch
         Console.WriteLine("invalid Entry, Program is ending. Relaunch the app and try again");
         return;
     }
+    //}
+    //----------------------------------------------------------------------------------------------
+    //Output
+    double result = convertFirstUserInput / convertSecondUserInput;
+    Console.WriteLine($"The numbers you entered {convertFirstUserInput} and {convertSecondUserInput}");
+    Console.WriteLine($"Lets divide these numbers buddy. " +
+        $"Your Numbers are {convertFirstUserInput} divided by {convertSecondUserInput}. This in an equation format is:" +
+        $" {convertFirstUserInput} / {convertSecondUserInput} = {result}.");
+
 }
-//----------------------------------------------------------------------------------------------
-//Output
-double result = convertFirstUserInput / convertSecondUserInput;
-Console.WriteLine($"The numbers you entered {convertFirstUserInput} and {convertSecondUserInput}");
-Console.WriteLine($"Lets divide these numbers buddy. " +
-    $"Your Numbers are {convertFirstUserInput} divided by {convertSecondUserInput}. This in an equation format is:" +
-    $" {convertFirstUserInput} / {convertSecondUserInput} = {result}.");
+catch(Exception ex) {
+
+    DateTime now = DateTime.Now;
+    string writeText = ex.Message + " " + now;
+    string path = "C:\\Users\\jacob\\Desktop\\P_Projects\\c#\\DivideProject\\DivideProject\\logs\\";
+
+    File.WriteAllText(path + "logFileTest2.txt", writeText);
+    File.WriteAllText("logFileTest.txt", writeText);
+    Console.WriteLine($"The Aplication has Encountered an error. The error states: {ex.Message}");
+    Console.WriteLine("Please look at this Directory for the log file: \\DivideProject\\logs\\");
+   
+}
